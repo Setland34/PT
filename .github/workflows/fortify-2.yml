@@ -1,7 +1,6 @@
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# separate terms of service, privacy policy, and support documentation.
 
 ################################################################################################################################################
 # Fortify Application Security provides your team with solutions to empower DevSecOps practices, enable cloud transformation, and secure your  #
@@ -66,8 +65,8 @@ jobs:
           ctpUrl: ${{ secrets.CTP_URL }}
           ctpUsername: ${{ secrets.CTP_USERNAME }}
           ctpPassword: ${{ secrets.CTP_PASSWORD }}
-          system: '<your-system>'
-          environment: '<your-environment>'
-          instance: '<your-instance>'
+          system: 'my-system'
+          environment: 'my-environment'
+          instance: 'my-instance'
           abortOnFailure: false
           copyToVirtualize: false
