@@ -1,72 +1,25 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support documentation.
-
-################################################################################################################################################
-# Fortify Application Security provides your team with solutions to empower DevSecOps practices, enable cloud transformation, and secure your  #
-# software supply chain. To learn more about Fortify, start a free trial or contact our sales team, visit fortify.com.                         #
-#                                                                                                                                              #
-# Use this starter workflow as a basis for integrating Fortify Application Security Testing into your GitHub workflows. This template          #
-# demonstrates the steps to package the code+dependencies, initiate a scan, and optionally import SAST vulnerabilities into GitHub Security    #
-# Code Scanning Alerts. Additional information is available in the workflow comments and the Fortify AST Action / fcli / Fortify product       #
-# documentation. If you need additional assistance, please contact Fortify support.                                                            #
-################################################################################################################################################
-
 name: Fortify AST Scan
 
-# Customize trigger events based on your DevSecOps process and/or policy
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
-  schedule:
-    - cron: '30 4 * * 5'
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
-  Fortify-AST-Scan:
+  scan:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
 
     steps:
-      - name: Check Out Source Code
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'temurin'
+    - name: Run Fortify SCA
+      run: |
+        # Your Fortify SCA commands here
 
-      - name: Run FoD SAST Scan
-        uses: fortify/github-action@a92347297e02391b857e7015792cd1926a4cd418
-        with:
-          sast-scan: true
-        env:
-          FOD_URL: https://ams.fortify.com
-          FOD_TENANT: ${{ secrets.FOD_TENANT }}
-          FOD_USER: ${{ secrets.FOD_USER }}
-          FOD_PASSWORD: ${{ secrets.FOD_PAT }}
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4.1.0
-        with:
-          always-auth: false
-          node-version: '14'
-          cache: 'npm'
-
-      - name: Deploy Environment
-        uses: parasoft/deploy-environment-action@1.0.2
-        with:
-          ctpUrl: ${{ secrets.CTP_URL }}
-          ctpUsername: ${{ secrets.CTP_USERNAME }}
-          ctpPassword: ${{ secrets.CTP_PASSWORD }}
-          system: 'my-system'
-          environment: 'my-environment'
-          instance: 'my-instance'
-          abortOnFailure: false
-          copyToVirtualize: false
+    - name: Upload Fortify Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: fortThe job failed because it uses a deprecated versionify-results
+        path: path/to/fortify/results
