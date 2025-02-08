@@ -17,12 +17,10 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'javascript', 'python', 'ruby', 'solidity' ]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'typescript' ]
-        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2.3.4  # Use a specific version
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -34,3 +32,12 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+      with:
+        verbosity: debug  # Set verbosity level to debug for detailed logs
+
+    - name: Upload CodeQL Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: codeql-results
+        path: path/to/codeql/results  # Ensure this path is correct
+        path: path/to/codeql/results  # Ensure this path is correct
