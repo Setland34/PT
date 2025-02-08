@@ -1,0 +1,25 @@
+name: Fortify AST Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run Fortify SCA
+      run: |
+        # Your Fortify SCA commands here
+
+    - name: Upload Fortify Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: fortify-results
+        path: path/to/fortify/results
