@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2.3.4  # Use a specific version
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -32,3 +32,11 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+      with:
+        verbosity: debug  # Set verbosity level to debug for detailed logs
+
+    - name: Upload CodeQL Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: codeql-results
+        path: path/to/codeql/results  # Ensure this path is correct
