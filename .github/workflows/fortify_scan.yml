@@ -1,7 +1,6 @@
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# separate terms of service, privacy policy, and support documentation.
 
 ################################################################################################################################################
 # Fortify Application Security provides your team with solutions to empower DevSecOps practices, enable cloud transformation, and secure your  #
@@ -22,7 +21,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '23 14 * * 6'
+    - cron: '30 4 * * 5'
   workflow_dispatch:
 
 jobs:
@@ -53,13 +52,32 @@ jobs:
           FOD_USER: ${{ secrets.FOD_USER }}
           FOD_PASSWORD: ${{ secrets.FOD_PAT }}
 
-      - name: ServiceNow CI/CD Activate Plugin
-        uses: ServiceNow/sncicd-plugin-activate@2.0.0
-        with:
-          pluginID: <your-plugin-id>
-
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.1.0
         with:
+          always-auth: false
           node-version: '14'
           cache: 'npm'
+
+      - name: Deploy Environment
+        uses: parasoft/deploy-environment-action@1.0.2
+        with:
+          ctpUrl: ${{ secrets.CTP_URL }}
+          ctpUsername: ${{ secrets.CTP_USERNAME }}
+          ctpPassword: ${{ secrets.CTP_PASSWORD }}
+          system: 'my-system'
+          environment: 'my-environment'
+          instance: 'my-instance'
+          abortOnFailure: false
+          copyToVirtualize: false
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: build/
+          if-no-files-found: warn
+          retention-days: 30
+          compression-level: 6
+          overwrite: false
+          include-hidden-files: false
