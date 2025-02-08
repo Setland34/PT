@@ -17,8 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'javascript', 'python', 'ruby', 'solidity' ]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'typescript' ]
-        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     steps:
     - name: Checkout repository
