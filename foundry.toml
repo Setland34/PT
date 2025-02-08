@@ -1,0 +1,22 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+evm_version = "paris"
+solc = "0.8.26"
+via_ir = true
+
+remappings = [
+    "@openzeppelin/=lib/openzeppelin-contracts/"
+]
+
+[fuzz]
+runs = 256
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
+[profile.sepolia]
+fork_url = "https://sepolia.infura.io/v3/YOUR_INFURA_API_KEY"
+
+[profile.mainnet]
+fork_url = "https://mainnet.infura.io/v3/YOUR_INFURA_API_KEY"
