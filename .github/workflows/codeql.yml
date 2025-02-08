@@ -40,3 +40,4 @@ jobs:
       with:
         name: codeql-results
         path: path/to/codeql/results  # Ensure this path is correct
+        path: path/to/codeql/results  # Ensure this path is correct
